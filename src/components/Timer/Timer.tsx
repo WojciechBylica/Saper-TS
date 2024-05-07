@@ -1,25 +1,18 @@
 import { useEffect, useRef } from "react";
 import { Field } from "../../types";
+import { useSaperContext } from "../../saperContext";
 
-type Props = {
-  countDown: number;
-  setCountDown: React.Dispatch<React.SetStateAction<number>>;
-  isExploded: boolean;
-  startTimer: boolean;
-  isWon: boolean;
-  hydratedFields: Field[];
-  setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>;
-};
+export const Timer = () => {
+  const {
+    countDown,
+    setCountDown,
+    isExploded,
+    startTimer,
+    isWon,
+    hydratedFields,
+    setHydratedFields,
+    } = useSaperContext()
 
-export const Timer = ({
-  countDown,
-  setCountDown,
-  isExploded,
-  startTimer,
-  isWon,
-  hydratedFields,
-  setHydratedFields,
-}: Props) => {
   const intervalId = useRef<number | undefined>(undefined);
 
   const timeLeft = [
