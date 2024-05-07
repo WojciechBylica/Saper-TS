@@ -111,7 +111,7 @@ function App() {
     // handleClick(id+1)
   };
 
-  const gameLength = 5 * 1_000; // 5min
+  const gameLength = 5 * 60_000; // 5min
   const [countDown, setCountDown] = useState(gameLength);
 
   const resetGame = () => {
@@ -123,6 +123,7 @@ function App() {
   const isExploded = hydratedFields.some((field) => field.state === "exploded");
   const startTimer = countDown === gameLength;
   const isDraw = countDown === 0 && !isExploded;
+
   return (
     <div>
       <div className="controls">
