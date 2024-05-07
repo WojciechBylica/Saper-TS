@@ -7,7 +7,7 @@ import { Timer } from "./assets/components";
 import classNames from "classnames";
 
 function App() {
-  const [count, setCount] = useState<10 | 20>(10);
+  const [count, ] = useState<10 | 20>(10);
   const [bombsLeft, setBombsLeft] = useState<number>(count);
   const [hydratedFields, setHydratedFields] = useState(
     getHydratedFields(count),
