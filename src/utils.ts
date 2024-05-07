@@ -1,92 +1,92 @@
-import { Field } from './types'
+import { Field } from "./types";
 
 export const getRandomIntFromInterval = (max: number) =>
-  Math.floor(Math.random() * max + 1)
+  Math.floor(Math.random() * max + 1);
 
 export const getBombIndexes = (count: number) => {
-  let bombIndexes: number[] = []
+  let bombIndexes: number[] = [];
 
   do {
-    bombIndexes.push(getRandomIntFromInterval(count * count))
-  } while (bombIndexes.length < count)
+    bombIndexes.push(getRandomIntFromInterval(count * count));
+  } while (bombIndexes.length < count);
 
-  return bombIndexes
-}
+  return bombIndexes;
+};
 
 export const getInitialFields = (count: number) => {
-  const bombIndexes = getBombIndexes(count)
-  const fields: Field[] = []
-  const numberOfFields = count * count
-  let x = 1
-  let y = 1
+  const bombIndexes = getBombIndexes(count);
+  const fields: Field[] = [];
+  const numberOfFields = count * count;
+  let x = 1;
+  let y = 1;
 
   for (let id = 1; id <= numberOfFields; id++) {
     fields.push({
       id,
       x,
       y,
-      state: 'virgin',
+      state: "virgin",
       bomb: bombIndexes.includes(id),
-      bombsInTouch: 0
-    })
+      bombsInTouch: 0,
+    });
 
     if (y === count) {
-      x++
-      y = 1
+      x++;
+      y = 1;
     } else {
-      y++
+      y++;
     }
   }
 
-  return fields
-}
+  return fields;
+};
 
 export const getFlags = (fields: Field[]) => {
-  let flags: number[] = []
+  let flags: number[] = [];
 
   fields.forEach((field) => {
-    let bombsInTouch = 0
+    let bombsInTouch = 0;
 
     !field.bomb &&
       fields.find(({ x, id }) => x === field.x && id === field.id - 1)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
     !field.bomb &&
       fields.find(({ x, id }) => x === field.x && id === field.id + 1)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
 
     !field.bomb &&
       fields.find(({ x, y }) => x === field.x - 1 && y === field.y - 1)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
     !field.bomb &&
       fields.find(({ x, y }) => x === field.x - 1 && y === field.y)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
     !field.bomb &&
       fields.find(({ x, y }) => x === field.x - 1 && y === field.y + 1)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
 
     !field.bomb &&
       fields.find(({ x, y }) => x === field.x + 1 && y === field.y - 1)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
     !field.bomb &&
       fields.find(({ x, y }) => x === field.x + 1 && y === field.y)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
     !field.bomb &&
       fields.find(({ x, y }) => x === field.x + 1 && y === field.y + 1)?.bomb &&
-      bombsInTouch++
+      bombsInTouch++;
 
-    flags.push(bombsInTouch)
-  })
-  return flags
-}
+    flags.push(bombsInTouch);
+  });
+  return flags;
+};
 
 export const getHydratedFields = (count: number) => {
-  const fields = getInitialFields(count)
-  const flags = getFlags(fields)
-  let hydratedFields: Field[] = []
+  const fields = getInitialFields(count);
+  const flags = getFlags(fields);
+  let hydratedFields: Field[] = [];
 
   fields.forEach(({ id, x, y, state, bomb }) =>
-    hydratedFields.push({ id, x, y, state, bomb, bombsInTouch: flags[id - 1] })
-  )
+    hydratedFields.push({ id, x, y, state, bomb, bombsInTouch: flags[id - 1] }),
+  );
 
-  return hydratedFields
-}
+  return hydratedFields;
+};
