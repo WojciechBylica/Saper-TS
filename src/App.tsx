@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './App.css'
 import { getHydratedFields } from './utils'
 import { Field } from './types'
+import { Timer } from './assets/components'
 
 function App() {
   const [count, setCount] = useState<10 | 20>(10)
@@ -107,17 +108,26 @@ function App() {
     // handleClick(id+1)
   }
 
+  const gameLength = 5 * 1_000 // 5min
+  const [countDown, setCountDown] = useState(gameLength)
+
   const resetGame = () => {
     setHydratedFields(getHydratedFields(count))
     setBombsLeft(count)
+    setCountDown(gameLength)
   }
 
+  const isExploded = hydratedFields.some((field) => field.state === 'exploded')
+  const startTimer = countDown===gameLength
+  const isDraw = countDown===0 && !isExploded
   return (
     <div>
       <div className="controls">
-        <div className="controls-box">timer</div>
+        <div className="controls-box"><Timer {...{ countDown, setCountDown, isExploded, startTimer, hydratedFields, setHydratedFields }} /></div>
         <button onClick={resetGame}>
-          {hydratedFields.find((field) => field.state === 'exploded')
+          {isDraw
+            ? '😐'
+            :isExploded
             ? '🥵'
             : '😀'}
         </button>
