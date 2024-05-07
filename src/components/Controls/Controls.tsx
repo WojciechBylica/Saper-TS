@@ -1,6 +1,8 @@
-import { useSaperContext } from "../../saperContext";
+import './styles.css'
+
+import { useSaperContext } from "../../App";
 import { getHydratedFields } from "../../utils";
-import { Timer } from "../Timer/Timer";
+import { Timer } from "../Timer";
 
 export const Controls = () => {
   const {

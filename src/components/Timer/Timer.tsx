@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
+
 import { Field } from "../../types";
-import { useSaperContext } from "../../saperContext";
+import { useSaperContext } from "../../App";
 
 export const Timer = () => {
   const {

@@ -1,0 +1,22 @@
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--color-black);
+    padding: 12px;
+}
+
+.controls-box {
+    background: rgb(9,75,119);
+    background: -moz-linear-gradient(84deg, rgba(9,75,119,1) 0%, rgba(13,42,61,1) 100%, rgba(9,75,119,1) 100%);
+    background: -webkit-linear-gradient(84deg, rgba(9,75,119,1) 0%, rgba(13,42,61,1) 100%, rgba(9,75,119,1) 100%);
+    background: linear-gradient(84deg, rgba(9,75,119,1) 0%, rgba(13,42,61,1) 100%, rgba(9,75,119,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#094b77",endColorstr="#094b77",GradientType=1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-black);
+    padding: 12px;
+    width: 100px;
+}

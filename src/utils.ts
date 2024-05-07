@@ -4,7 +4,7 @@ export const getRandomIntFromInterval = (max: number) =>
   Math.floor(Math.random() * max + 1);
 
 export const getBombIndexes = (count: number) => {
-  let bombIndexes: number[] = [];
+  const bombIndexes: number[] = [];
 
   do {
     bombIndexes.push(getRandomIntFromInterval(count * count));
@@ -42,7 +42,7 @@ export const getInitialFields = (count: number) => {
 };
 
 export const getFlags = (fields: Field[]) => {
-  let flags: number[] = [];
+  const flags: number[] = [];
 
   fields.forEach((field) => {
     let bombsInTouch = 0;
@@ -82,7 +82,7 @@ export const getFlags = (fields: Field[]) => {
 export const getHydratedFields = (count: number) => {
   const fields = getInitialFields(count);
   const flags = getFlags(fields);
-  let hydratedFields: Field[] = [];
+  const hydratedFields: Field[] = [];
 
   fields.forEach(({ id, x, y, state, bomb }) =>
     hydratedFields.push({ id, x, y, state, bomb, bombsInTouch: flags[id - 1] }),

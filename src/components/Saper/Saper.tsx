@@ -1,6 +1,8 @@
+import './styles.css'
 import classNames from "classnames";
-import { useSaperContext } from "../../saperContext";
-import { Field } from "../../types";
+
+import { useSaperContext } from "../../App";
+import type { Field } from "../../types";
 
 export const Saper = () => {
   const {
@@ -76,7 +78,6 @@ export const Saper = () => {
       handleClick(nextIdField.id);
     }
 
-    //  onButtonClick(id)
 
     const prevIdField = hydratedFields.find(
       ({ x, y }) => x === field.x && y === field.y - 1,
@@ -84,7 +85,6 @@ export const Saper = () => {
 
     if (prevIdField && !prevIdField.bomb && prevIdField.state === "virgin") {
       onButtonClick(prevIdField.id);
-      // handleClick(prevIdField.id)
     }
 
     const aboveIdField = hydratedFields.find(
@@ -102,13 +102,11 @@ export const Saper = () => {
 
     if (underIdField && !underIdField.bomb && underIdField.state === "virgin") {
       onButtonClick(underIdField.id);
-      // handleClick(underIdField.id)
     }
 
     if (field?.bombsInTouch !== 0 || field?.state !== "virgin") {
       return;
     }
-    // handleClick(id+1)
   };
 
   return (
@@ -139,7 +137,7 @@ export const Saper = () => {
             key={`field-${field.id}`}
             className={classNames("box-field", {
               "box-field-exploded": field.state === "exploded",
-              "box-field-safed": field.bomb && isWon,
+              "box-field-saved": field.bomb && isWon,
             })}
           >
             {field.bomb

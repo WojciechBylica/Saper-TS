@@ -11,6 +11,20 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --color-white: #f7f7f7;
+  --color-black: #333;
+  --color-green: #008000;
+  --color-red: #ff0000;
+  --color-cloudBurst: #213547;
+  --color-cornFlowerBlue: #646cff;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 body {
@@ -26,7 +40,7 @@ button {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
   width: 51.6px;
   height: 51.6px;
   padding: 0.6em 1.2em;
@@ -39,7 +53,7 @@ button {
   user-select: none;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-cornFlowerBlue);
 }
 button:focus,
 button:focus-visible {
@@ -48,10 +62,14 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-cloudBurst);
+    background-color: var(--color-white);
   }
   button {
-    background-color: #e8e7e7;
+    background: rgb(223,232,237);
+    background: -moz-radial-gradient(circle, rgba(223,232,237,1) 0%, rgba(191,195,198,1) 99%);
+    background: -webkit-radial-gradient(circle, rgba(223,232,237,1) 0%, rgba(191,195,198,1) 99%);
+    background: radial-gradient(circle, rgba(223,232,237,1) 0%, rgba(191,195,198,1) 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dfe8ed",endColorstr="#bfc3c6",GradientType=1);
   }
 }
