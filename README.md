@@ -1,10 +1,13 @@
 # Saper
 
-This is a tribute to a classic game: Saper.
+This is a tribute to a classic game Saper.
 
-Written in type-script with vite
+## Demo
 
-## instalation
+https://wojciechbylica.github.io/saper-ts/
+
+
+## Instalation
 
 Steps:
 
