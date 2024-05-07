@@ -149,7 +149,7 @@ function App() {
             }}
           />
         </div>
-        <button onClick={resetGame}>
+        <button onClick={resetGame} aria-label='reset game'>
           {isWon ? "😎" : isDraw ? "😐" : isExploded ? "🥵" : "😀"}
         </button>
         <div className="controls-box">{bombsLeft}</div>
@@ -159,7 +159,7 @@ function App() {
           !isWon && (field.state === "virgin" || field.state === "flagged") ? (
             <button
               key={`field-${field.id}`}
-              // className="box-field"
+              aria-label={`button with index x:${field.x}, y:${field.y} ${field.state === "flagged" ? "flagged" : "not flagged"}.`}
               onClick={() => {
                 if (hydratedFields[field.id - 1].state === "flagged") return;
                 onButtonClick(field.id);
