@@ -6,6 +6,7 @@ type Props = {
   setCountDown: React.Dispatch<React.SetStateAction<number>>;
   isExploded: boolean;
   startTimer: boolean;
+  isWon: boolean;
   hydratedFields: Field[];
   setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>;
 };
@@ -15,6 +16,7 @@ export const Timer = ({
   setCountDown,
   isExploded,
   startTimer,
+  isWon,
   hydratedFields,
   setHydratedFields,
 }: Props) => {
@@ -34,7 +36,7 @@ export const Timer = ({
   }, [startTimer, setCountDown]);
 
   useEffect(() => {
-    if (countDown <= 0 || isExploded) {
+    if (countDown <= 0 || isExploded || isWon) {
       clearInterval(intervalId.current);
       if (countDown <= 0) {
         const finalView: Field[] = hydratedFields.map((field) => ({
@@ -44,7 +46,7 @@ export const Timer = ({
         setHydratedFields(finalView);
       }
     }
-  }, [countDown, isExploded]);
+  }, [countDown, isExploded, isWon]);
 
   return (
     <>

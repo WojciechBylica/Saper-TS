@@ -2,8 +2,9 @@ import { useState } from "react";
 
 import "./App.css";
 import { getHydratedFields } from "./utils";
-import { Field } from "./types";
+import type { Field } from "./types";
 import { Timer } from "./assets/components";
+import classNames from "classnames";
 
 function App() {
   const [count, setCount] = useState<10 | 20>(10);
@@ -123,6 +124,14 @@ function App() {
   const isExploded = hydratedFields.some((field) => field.state === "exploded");
   const startTimer = countDown === gameLength;
   const isDraw = countDown === 0 && !isExploded;
+  const isWon =
+    countDown > 0 &&
+    hydratedFields
+      .filter((field) => !field.bomb)
+      .every((field) => field.state === "clicked") &&
+    hydratedFields
+      .filter((field) => field.bomb)
+      .every(({ state }) => state !== "exploded");
 
   return (
     <div>
@@ -134,25 +143,30 @@ function App() {
               setCountDown,
               isExploded,
               startTimer,
+              isWon,
               hydratedFields,
               setHydratedFields,
             }}
           />
         </div>
         <button onClick={resetGame}>
-          {isDraw ? "😐" : isExploded ? "🥵" : "😀"}
+          {isWon ? "😎" : isDraw ? "😐" : isExploded ? "🥵" : "😀"}
         </button>
         <div className="controls-box">{bombsLeft}</div>
       </div>
       <div className={`box${count === 20 ? " box-modified" : ""}`}>
         {hydratedFields.map((field) =>
-          field.state === "virgin" || field.state === "flagged" ? (
+          !isWon && (field.state === "virgin" || field.state === "flagged") ? (
             <button
               key={`field-${field.id}`}
-              className="box-field"
+              // className="box-field"
               onClick={() => {
                 if (hydratedFields[field.id - 1].state === "flagged") return;
                 onButtonClick(field.id);
+                if (isWon) {
+                  setHydratedFields;
+                  return;
+                }
                 handleClick(field.id);
               }}
               onContextMenu={(e) => {
@@ -165,7 +179,10 @@ function App() {
           ) : (
             <div
               key={`field-${field.id}`}
-              className={`box-field${field.state === "exploded" ? " box-field-modified" : ""}`}
+              className={classNames("box-field", {
+                "box-field-exploded": field.state === "exploded",
+                "box-field-safed": field.bomb && isWon,
+              })}
             >
               {field.bomb
                 ? "💣"
