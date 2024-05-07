@@ -11,7 +11,7 @@ export const Timer = () => {
     isWon,
     hydratedFields,
     setHydratedFields,
-    } = useSaperContext()
+  } = useSaperContext();
 
   const intervalId = useRef<number | undefined>(undefined);
 

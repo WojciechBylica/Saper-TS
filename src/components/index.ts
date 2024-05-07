@@ -1,3 +1,3 @@
 export * from "./Timer/Timer";
-export * from './Controls'
-export * from './Saper'
+export * from "./Controls";
+export * from "./Saper";
