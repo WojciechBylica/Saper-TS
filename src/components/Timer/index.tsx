@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Field } from "../../../types";
+import { Field } from "../../types";
 
 type Props = {
   countDown: number;

@@ -3,11 +3,11 @@ import { useState } from "react";
 import "./App.css";
 import { getHydratedFields } from "./utils";
 import type { Field } from "./types";
-import { Timer } from "./assets/components";
+import { Timer } from "./components";
 import classNames from "classnames";
 
 function App() {
-  const [count, ] = useState<10 | 20>(10);
+  const [count, setCount] = useState<10 | 20>(10);
   const [bombsLeft, setBombsLeft] = useState<number>(count);
   const [hydratedFields, setHydratedFields] = useState(
     getHydratedFields(count),
@@ -115,7 +115,7 @@ function App() {
   const gameLength = 5 * 60_000; // 5min
   const [countDown, setCountDown] = useState(gameLength);
 
-  const resetGame = () => {
+  const resetGame = (count: number) => {
     setHydratedFields(getHydratedFields(count));
     setBombsLeft(count);
     setCountDown(gameLength);
@@ -149,10 +149,14 @@ function App() {
             }}
           />
         </div>
-        <button onClick={resetGame} aria-label='reset game'>
+        <button onClick={()=>resetGame(count)} aria-label='reset game'>
           {isWon ? "😎" : isDraw ? "😐" : isExploded ? "🥵" : "😀"}
         </button>
-        <div className="controls-box">{bombsLeft}</div>
+        <button className="controls-box" onClick={()=>{
+          const newCount = count === 20 ? 10 : 20
+          setCount(newCount)
+          resetGame(newCount)
+          }}>{bombsLeft}</button>
       </div>
       <div className={`box${count === 20 ? " box-modified" : ""}`}>
         {hydratedFields.map((field) =>
