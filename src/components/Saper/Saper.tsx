@@ -99,40 +99,40 @@ export const Saper = () => {
 
   return (
     <div className={`box${count === 20 ? " box-modified" : ""}`}>
-      {hydratedFields.map((field) =>
-        !isWon && (field.state === "virgin" || field.state === "flagged") ? (
+      {hydratedFields.map(({state,id,x,y, bomb, bombsInTouch}) =>
+        !isWon && (state === "virgin" || state === "flagged") ? (
           <button
-            key={`field-${field.id}`}
-            aria-label={`button with index x:${field.x}, y:${field.y} ${field.state === "flagged" ? "flagged" : "not flagged"}.`}
+            key={`field-${id}`}
+            aria-label={`button with index x:${x}, y:${y} ${state === "flagged" ? "flagged" : "not flagged"}.`}
             onClick={() => {
-              if (hydratedFields[field.id - 1].state === "flagged") return;
-              onButtonClick(field.id);
+              if (hydratedFields[id - 1].state === "flagged") return;
+              onButtonClick(id);
               if (isWon) {
                 setHydratedFields;
                 return;
               }
-              handleClick(field.id);
+              handleClick(id);
             }}
             onContextMenu={(e) => {
               e.preventDefault();
-              onRightButtonClick(field.id);
+              onRightButtonClick(id);
             }}
           >
-            {field.state === "flagged" ? "🚩" : ""}
+            {state === "flagged" ? "🚩" : ""}
           </button>
         ) : (
           <div
-            key={`field-${field.id}`}
+            key={`field-${id}`}
             className={classNames("box-field", {
-              "box-field-exploded": field.state === "exploded",
-              "box-field-saved": field.bomb && isWon,
+              "box-field-exploded": state === "exploded",
+              "box-field-saved": bomb && isWon,
             })}
           >
-            {field.bomb
+            {bomb
               ? "💣"
-              : field.bombsInTouch === 0
+              : bombsInTouch === 0
                 ? ""
-                : field.bombsInTouch}
+                : bombsInTouch}
           </div>
         ),
       )}
