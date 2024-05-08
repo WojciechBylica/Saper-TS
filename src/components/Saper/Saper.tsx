@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import { useSaperContext } from "../../App";
 import type { Field } from "../../types";
+import { getFieldID, getIsFieldClickable } from '../../utils';
 
 export const Saper = () => {
   const {
@@ -69,43 +70,30 @@ export const Saper = () => {
       return;
     }
 
-    const nextIdField = hydratedFields.find(
-      ({ x, y }) => x === field.x && y === field.y + 1,
-    );
+    const nextIdField = getFieldID(field.x, field.y + 1, hydratedFields)
 
-    if (nextIdField && !nextIdField.bomb && nextIdField.state === "virgin") {
+    if (nextIdField && getIsFieldClickable(nextIdField)) {
       onButtonClick(nextIdField.id);
       handleClick(nextIdField.id);
     }
 
+    const prevIdField = getFieldID(field.x, field.y -1, hydratedFields)
 
-    const prevIdField = hydratedFields.find(
-      ({ x, y }) => x === field.x && y === field.y - 1,
-    );
-
-    if (prevIdField && !prevIdField.bomb && prevIdField.state === "virgin") {
+    if (prevIdField && getIsFieldClickable(prevIdField)) {
       onButtonClick(prevIdField.id);
     }
 
-    const aboveIdField = hydratedFields.find(
-      ({ x, y }) => x === field.x - 1 && y === field.y,
-    );
+    const aboveIdField = getFieldID(field.x -1, field.y, hydratedFields)
 
-    if (aboveIdField && !aboveIdField.bomb && aboveIdField.state === "virgin") {
+    if (aboveIdField && getIsFieldClickable(aboveIdField)) {
       onButtonClick(aboveIdField.id);
       handleClick(aboveIdField.id);
     }
 
-    const underIdField = hydratedFields.find(
-      ({ x, y }) => x === field.x + 1 && y === field.y,
-    );
+    const underIdField = getFieldID(field.x +1, field.y, hydratedFields)
 
-    if (underIdField && !underIdField.bomb && underIdField.state === "virgin") {
+    if (underIdField && getIsFieldClickable(underIdField)) {
       onButtonClick(underIdField.id);
-    }
-
-    if (field?.bombsInTouch !== 0 || field?.state !== "virgin") {
-      return;
     }
   };
 

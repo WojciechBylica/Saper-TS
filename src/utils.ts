@@ -41,38 +41,26 @@ export const getInitialFields = (count: number) => {
   return fields;
 };
 
+export const getIsFieldClickable = (field: Field)=> !field.bomb && field.state === "virgin"
+export const getFieldID = (fieldX:number, fieldY:number, hydratedFields: Field[])=> hydratedFields.find(({ x, y })=> x === fieldX && y === fieldY)
+
 export const getFlags = (fields: Field[]) => {
   const flags: number[] = [];
+  const getIsFieldInBombTouch = (fieldX: number, fieldY: number, fields: Field[]) => fields.find(({ x, y }) => x === fieldX && y === fieldY)?.bomb
 
   fields.forEach((field) => {
     let bombsInTouch = 0;
 
-    !field.bomb &&
-      fields.find(({ x, id }) => x === field.x && id === field.id - 1)?.bomb &&
-      bombsInTouch++;
-    !field.bomb &&
-      fields.find(({ x, id }) => x === field.x && id === field.id + 1)?.bomb &&
-      bombsInTouch++;
-
-    !field.bomb &&
-      fields.find(({ x, y }) => x === field.x - 1 && y === field.y - 1)?.bomb &&
-      bombsInTouch++;
-    !field.bomb &&
-      fields.find(({ x, y }) => x === field.x - 1 && y === field.y)?.bomb &&
-      bombsInTouch++;
-    !field.bomb &&
-      fields.find(({ x, y }) => x === field.x - 1 && y === field.y + 1)?.bomb &&
-      bombsInTouch++;
-
-    !field.bomb &&
-      fields.find(({ x, y }) => x === field.x + 1 && y === field.y - 1)?.bomb &&
-      bombsInTouch++;
-    !field.bomb &&
-      fields.find(({ x, y }) => x === field.x + 1 && y === field.y)?.bomb &&
-      bombsInTouch++;
-    !field.bomb &&
-      fields.find(({ x, y }) => x === field.x + 1 && y === field.y + 1)?.bomb &&
-      bombsInTouch++;
+    [
+      {x: field.x, y: field.y-1},
+      {x: field.x, y: field.y+1},
+      {x: field.x-1, y: field.y-1},
+      {x: field.x-1, y: field.y},
+      {x: field.x-1, y: field.y+1},
+      {x: field.x+1, y: field.y-1},
+      {x: field.x+1, y: field.y},
+      {x: field.x+1, y: field.y+1},
+    ].forEach(({x,y})=>getIsFieldInBombTouch(x,y,fields) && bombsInTouch++)
 
     flags.push(bombsInTouch);
   });
