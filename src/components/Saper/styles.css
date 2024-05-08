@@ -1,28 +1,28 @@
 .box {
-    border: 1px solid var(--color-black);
-    padding: 12px;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
+  border: 1px solid var(--color-black);
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
 }
 
 .box-modified {
-    grid-template-columns: repeat(20, 1fr);
+  grid-template-columns: repeat(20, 1fr);
 }
 
 .box-field {
-    border: 1px solid var(--color-black);
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
+  border: 1px solid var(--color-black);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
 }
 
 .box-field-exploded {
-    background-color: var(--color-red);
+  background-color: var(--color-red);
 }
 
 .box-field-saved {
-    background-color: var(--color-green);
+  background-color: var(--color-green);
 }

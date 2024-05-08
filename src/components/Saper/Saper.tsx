@@ -1,9 +1,9 @@
-import './styles.css'
+import "./styles.css";
 import classNames from "classnames";
 
 import { useSaperContext } from "../../App";
 import type { Field } from "../../types";
-import { getFieldID, getIsFieldClickable } from '../../utils';
+import { getFieldID, getIsFieldClickable } from "../../utils";
 
 export const Saper = () => {
   const {
@@ -70,27 +70,27 @@ export const Saper = () => {
       return;
     }
 
-    const nextIdField = getFieldID(field.x, field.y + 1, hydratedFields)
+    const nextIdField = getFieldID(field.x, field.y + 1, hydratedFields);
 
     if (nextIdField && getIsFieldClickable(nextIdField)) {
       onButtonClick(nextIdField.id);
       handleClick(nextIdField.id);
     }
 
-    const prevIdField = getFieldID(field.x, field.y -1, hydratedFields)
+    const prevIdField = getFieldID(field.x, field.y - 1, hydratedFields);
 
     if (prevIdField && getIsFieldClickable(prevIdField)) {
       onButtonClick(prevIdField.id);
     }
 
-    const aboveIdField = getFieldID(field.x -1, field.y, hydratedFields)
+    const aboveIdField = getFieldID(field.x - 1, field.y, hydratedFields);
 
     if (aboveIdField && getIsFieldClickable(aboveIdField)) {
       onButtonClick(aboveIdField.id);
       handleClick(aboveIdField.id);
     }
 
-    const underIdField = getFieldID(field.x +1, field.y, hydratedFields)
+    const underIdField = getFieldID(field.x + 1, field.y, hydratedFields);
 
     if (underIdField && getIsFieldClickable(underIdField)) {
       onButtonClick(underIdField.id);
@@ -99,7 +99,7 @@ export const Saper = () => {
 
   return (
     <div className={`box${count === 20 ? " box-modified" : ""}`}>
-      {hydratedFields.map(({state,id,x,y, bomb, bombsInTouch}) =>
+      {hydratedFields.map(({ state, id, x, y, bomb, bombsInTouch }) =>
         !isWon && (state === "virgin" || state === "flagged") ? (
           <button
             key={`field-${id}`}
@@ -128,11 +128,7 @@ export const Saper = () => {
               "box-field-saved": bomb && isWon,
             })}
           >
-            {bomb
-              ? "💣"
-              : bombsInTouch === 0
-                ? ""
-                : bombsInTouch}
+            {bomb ? "💣" : bombsInTouch === 0 ? "" : bombsInTouch}
           </div>
         ),
       )}

@@ -1,4 +1,4 @@
-import './styles.css'
+import "./styles.css";
 
 import { useSaperContext } from "../../App";
 import { getHydratedFields } from "../../utils";
