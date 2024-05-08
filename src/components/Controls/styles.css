@@ -27,11 +27,12 @@
     rgba(9, 75, 119, 1) 100%
   );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#094b77",endColorstr="#094b77",GradientType=1);
-  color: #fff;
+  color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--color-black);
   padding: 12px;
   width: 100px;
+  user-select: none;
 }

@@ -98,7 +98,7 @@ export const Saper = () => {
   };
 
   return (
-    <div className={`box${count === 20 ? " box-modified" : ""}`}>
+    <div className={classNames('box', {"box-modified": count === 20})}>
       {hydratedFields.map(({ state, id, x, y, bomb, bombsInTouch }) =>
         !isWon && (state === "virgin" || state === "flagged") ? (
           <button
