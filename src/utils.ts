@@ -50,6 +50,19 @@ export const getFieldID = (
   hydratedFields: Field[],
 ) => hydratedFields.find(({ x, y }) => x === fieldX && y === fieldY);
 
+export const getCoordinatesOfSurroundingFields = (field: Field) => {
+  return [
+    { x: field.x, y: field.y - 1 },
+    { x: field.x, y: field.y + 1 },
+    { x: field.x - 1, y: field.y - 1 },
+    { x: field.x - 1, y: field.y },
+    { x: field.x - 1, y: field.y + 1 },
+    { x: field.x + 1, y: field.y - 1 },
+    { x: field.x + 1, y: field.y },
+    { x: field.x + 1, y: field.y + 1 },
+  ]
+}
+
 export const getFlags = (fields: Field[]) => {
   const flags: number[] = [];
   const getIsFieldInBombTouch = (
@@ -61,16 +74,9 @@ export const getFlags = (fields: Field[]) => {
   fields.forEach((field) => {
     let bombsInTouch = 0;
 
-    [
-      { x: field.x, y: field.y - 1 },
-      { x: field.x, y: field.y + 1 },
-      { x: field.x - 1, y: field.y - 1 },
-      { x: field.x - 1, y: field.y },
-      { x: field.x - 1, y: field.y + 1 },
-      { x: field.x + 1, y: field.y - 1 },
-      { x: field.x + 1, y: field.y },
-      { x: field.x + 1, y: field.y + 1 },
-    ].forEach(
+    const coordinatesOfSurroundingFields = getCoordinatesOfSurroundingFields(field)
+
+    coordinatesOfSurroundingFields.forEach(
       ({ x, y }) => getIsFieldInBombTouch(x, y, fields) && bombsInTouch++,
     );
 
@@ -90,3 +96,5 @@ export const getHydratedFields = (count: number) => {
 
   return hydratedFields;
 };
+
+

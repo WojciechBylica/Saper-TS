@@ -3,7 +3,8 @@ import classNames from "classnames";
 
 import { useSaperContext } from "../../App";
 import type { Field } from "../../types";
-import { getFieldID, getIsFieldClickable } from "../../utils";
+import { getCoordinatesOfSurroundingFields, getFieldID, getIsFieldClickable } from "../../utils";
+import { useState } from "react";
 
 export const Saper = () => {
   const {
@@ -70,31 +71,23 @@ export const Saper = () => {
       return;
     }
 
-    const nextIdField = getFieldID(field.x, field.y + 1, hydratedFields);
+    const coordinatesOfSurroundingFields = getCoordinatesOfSurroundingFields(field)
+    console.log(coordinatesOfSurroundingFields)
+    coordinatesOfSurroundingFields.forEach(({x,y})=>{
+      const nextField = getFieldID(x, y, hydratedFields);
 
-    if (nextIdField && getIsFieldClickable(nextIdField)) {
-      onButtonClick(nextIdField.id);
-      handleClick(nextIdField.id);
-    }
+      if(nextField && getIsFieldClickable(nextField)) {
+        onButtonClick(nextField.id);
+      }
+    })
 
-    const prevIdField = getFieldID(field.x, field.y - 1, hydratedFields);
-
-    if (prevIdField && getIsFieldClickable(prevIdField)) {
-      onButtonClick(prevIdField.id);
-    }
-
-    const aboveIdField = getFieldID(field.x - 1, field.y, hydratedFields);
-
-    if (aboveIdField && getIsFieldClickable(aboveIdField)) {
-      onButtonClick(aboveIdField.id);
-      handleClick(aboveIdField.id);
-    }
-
-    const underIdField = getFieldID(field.x + 1, field.y, hydratedFields);
-
-    if (underIdField && getIsFieldClickable(underIdField)) {
-      onButtonClick(underIdField.id);
-    }
+    const nextFieldsToIterate = [coordinatesOfSurroundingFields[1],coordinatesOfSurroundingFields[3]]
+    nextFieldsToIterate.forEach(({x,y})=>{
+      const nextField = getFieldID(x, y, hydratedFields);
+      if(nextField && getIsFieldClickable(nextField)) {
+        nextField.id && handleClick(nextField.id);
+      }
+    })
   };
 
   return (
