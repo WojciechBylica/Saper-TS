@@ -69,8 +69,7 @@ export const Saper = () => {
       id > hydratedFields.length ||
       id < 1 ||
       !field ||
-      (field &&
-        (field.bomb || field?.state !== "virgin" || field.bombsInTouch !== 0))
+      (!getIsFieldClickable(field) || field.bombsInTouch !== 0)
     ) {
       return;
     }
