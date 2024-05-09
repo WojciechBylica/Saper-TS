@@ -7,7 +7,8 @@ export const getBombIndexes = (count: number) => {
   const bombIndexes: number[] = [];
 
   do {
-    bombIndexes.push(getRandomIntFromInterval(count * count));
+    const bombIndex = getRandomIntFromInterval(count * count)
+    !bombIndexes.includes(bombIndex) && bombIndexes.push(getRandomIntFromInterval(count * count));
   } while (bombIndexes.length < count);
 
   return bombIndexes;
