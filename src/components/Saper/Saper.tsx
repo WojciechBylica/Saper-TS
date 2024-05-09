@@ -8,7 +8,6 @@ import {
   getFieldID,
   getIsFieldClickable,
 } from "../../utils";
-import { useState } from "react";
 
 export const Saper = () => {
   const {
