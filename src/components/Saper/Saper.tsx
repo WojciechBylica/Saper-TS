@@ -72,7 +72,7 @@ export const Saper = () => {
     }
 
     const coordinatesOfSurroundingFields = getCoordinatesOfSurroundingFields(field)
-    console.log(coordinatesOfSurroundingFields)
+    
     coordinatesOfSurroundingFields.forEach(({x,y})=>{
       const nextField = getFieldID(x, y, hydratedFields);
 
