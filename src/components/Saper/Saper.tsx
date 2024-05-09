@@ -3,7 +3,11 @@ import classNames from "classnames";
 
 import { useSaperContext } from "../../App";
 import type { Field } from "../../types";
-import { getCoordinatesOfSurroundingFields, getFieldID, getIsFieldClickable } from "../../utils";
+import {
+  getCoordinatesOfSurroundingFields,
+  getFieldID,
+  getIsFieldClickable,
+} from "../../utils";
 import { useState } from "react";
 
 export const Saper = () => {
@@ -71,27 +75,31 @@ export const Saper = () => {
       return;
     }
 
-    const coordinatesOfSurroundingFields = getCoordinatesOfSurroundingFields(field)
-    
-    coordinatesOfSurroundingFields.forEach(({x,y})=>{
+    const coordinatesOfSurroundingFields =
+      getCoordinatesOfSurroundingFields(field);
+
+    coordinatesOfSurroundingFields.forEach(({ x, y }) => {
       const nextField = getFieldID(x, y, hydratedFields);
 
-      if(nextField && getIsFieldClickable(nextField)) {
+      if (nextField && getIsFieldClickable(nextField)) {
         onButtonClick(nextField.id);
       }
-    })
+    });
 
-    const nextFieldsToIterate = [coordinatesOfSurroundingFields[1],coordinatesOfSurroundingFields[3]]
-    nextFieldsToIterate.forEach(({x,y})=>{
+    const nextFieldsToIterate = [
+      coordinatesOfSurroundingFields[1],
+      coordinatesOfSurroundingFields[3],
+    ];
+    nextFieldsToIterate.forEach(({ x, y }) => {
       const nextField = getFieldID(x, y, hydratedFields);
-      if(nextField && getIsFieldClickable(nextField)) {
+      if (nextField && getIsFieldClickable(nextField)) {
         nextField.id && handleClick(nextField.id);
       }
-    })
+    });
   };
 
   return (
-    <div className={classNames('box', {"box-modified": count === 20})}>
+    <div className={classNames("box", { "box-modified": count === 20 })}>
       {hydratedFields.map(({ state, id, x, y, bomb, bombsInTouch }) =>
         !isWon && (state === "virgin" || state === "flagged") ? (
           <button

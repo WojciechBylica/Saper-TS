@@ -7,8 +7,9 @@ export const getBombIndexes = (count: number) => {
   const bombIndexes: number[] = [];
 
   do {
-    const bombIndex = getRandomIntFromInterval(count * count)
-    !bombIndexes.includes(bombIndex) && bombIndexes.push(getRandomIntFromInterval(count * count));
+    const bombIndex = getRandomIntFromInterval(count * count);
+    !bombIndexes.includes(bombIndex) &&
+      bombIndexes.push(getRandomIntFromInterval(count * count));
   } while (bombIndexes.length < count);
 
   return bombIndexes;
@@ -60,8 +61,8 @@ export const getCoordinatesOfSurroundingFields = (field: Field) => {
     { x: field.x + 1, y: field.y - 1 },
     { x: field.x + 1, y: field.y },
     { x: field.x + 1, y: field.y + 1 },
-  ]
-}
+  ];
+};
 
 export const getFlags = (fields: Field[]) => {
   const flags: number[] = [];
@@ -74,7 +75,8 @@ export const getFlags = (fields: Field[]) => {
   fields.forEach((field) => {
     let bombsInTouch = 0;
 
-    const coordinatesOfSurroundingFields = getCoordinatesOfSurroundingFields(field)
+    const coordinatesOfSurroundingFields =
+      getCoordinatesOfSurroundingFields(field);
 
     coordinatesOfSurroundingFields.forEach(
       ({ x, y }) => getIsFieldInBombTouch(x, y, fields) && bombsInTouch++,
@@ -96,5 +98,3 @@ export const getHydratedFields = (count: number) => {
 
   return hydratedFields;
 };
-
-
