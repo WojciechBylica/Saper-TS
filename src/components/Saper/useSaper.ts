@@ -16,7 +16,11 @@ export const useSaper = () => {
     setBombsLeft,
   } = useSaperContext();
 
-  const onButtonClick = (id: number) => {
+  const onButtonClick = (
+    id: number,
+    hydratedFields: Field[],
+    setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>,
+  ) => {
     const editIndex = id - 1;
     const clickedField = hydratedFields[editIndex];
     if (clickedField.bomb) {
@@ -58,7 +62,11 @@ export const useSaper = () => {
     );
   };
 
-  const handleClick = (id: number) => {
+  const handleClick = (
+    id: number,
+    hydratedFields: Field[],
+    setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>,
+  ) => {
     const field = hydratedFields.find((field) => field.id === id);
 
     if (
@@ -78,7 +86,8 @@ export const useSaper = () => {
       const nextField = getFieldID(x, y, hydratedFields);
 
       if (nextField && getIsFieldClickable(nextField)) {
-        onButtonClick(nextField.id);
+        onButtonClick(nextField.id, hydratedFields, setHydratedFields);
+        // handleClick(nextField.id, hydratedFields,setHydratedFields);
       }
     });
 
@@ -86,13 +95,15 @@ export const useSaper = () => {
       coordinatesOfSurroundingFields[1],
       coordinatesOfSurroundingFields[3],
     ];
+
     nextFieldsToIterate.forEach(({ x, y }) => {
       const nextField = getFieldID(x, y, hydratedFields);
       if (nextField && getIsFieldClickable(nextField)) {
-        nextField.id && handleClick(nextField.id);
+        handleClick(nextField.id, hydratedFields, setHydratedFields);
       }
     });
   };
+
   return {
     onButtonClick,
     handleClick,

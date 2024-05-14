@@ -23,12 +23,12 @@ export const Saper = () => {
             aria-label={`button with index x:${x}, y:${y} ${state === "flagged" ? "flagged" : "not flagged"}.`}
             onClick={() => {
               if (hydratedFields[id - 1].state === "flagged") return;
-              onButtonClick(id);
+              onButtonClick(id, hydratedFields, setHydratedFields);
               if (isWon) {
                 setHydratedFields;
                 return;
               }
-              handleClick(id);
+              handleClick(id, hydratedFields, setHydratedFields);
             }}
             onContextMenu={(e) => {
               e.preventDefault();

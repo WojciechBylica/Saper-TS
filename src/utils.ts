@@ -63,14 +63,14 @@ export const getCoordinatesOfSurroundingFields = (field: Field) => {
     { x: field.x + 1, y: field.y + 1 },
   ];
 };
+const getIsFieldInBombTouch = (
+  fieldX: number,
+  fieldY: number,
+  fields: Field[],
+) => fields.find(({ x, y }) => x === fieldX && y === fieldY)?.bomb;
 
 export const getFlags = (fields: Field[]) => {
   const flags: number[] = [];
-  const getIsFieldInBombTouch = (
-    fieldX: number,
-    fieldY: number,
-    fields: Field[],
-  ) => fields.find(({ x, y }) => x === fieldX && y === fieldY)?.bomb;
 
   fields.forEach((field) => {
     let bombsInTouch = 0;
