@@ -1,24 +1,27 @@
-import { Field } from "./types";
+import { Field, PlayAreaSize } from "./types";
 
 export const getRandomIntFromInterval = (max: number) =>
   Math.floor(Math.random() * max + 1);
 
-export const getBombIndexes = (count: number) => {
+export const getBombIndexes = (
+  playAreaSize: PlayAreaSize,
+  count: number,
+  clickedFieldID: number,
+) => {
   const bombIndexes: number[] = [];
-
   do {
-    const bombIndex = getRandomIntFromInterval(count * count);
+    const bombIndex = getRandomIntFromInterval(playAreaSize * playAreaSize);
     !bombIndexes.includes(bombIndex) &&
-      bombIndexes.push(getRandomIntFromInterval(count * count));
+      bombIndex !== clickedFieldID &&
+      bombIndexes.push(bombIndex);
   } while (bombIndexes.length < count);
 
   return bombIndexes;
 };
 
-export const getInitialFields = (count: number) => {
-  const bombIndexes = getBombIndexes(count);
+export const getInitialFields = (playAreaSize: PlayAreaSize) => {
   const fields: Field[] = [];
-  const numberOfFields = count * count;
+  const numberOfFields = playAreaSize * playAreaSize;
   let x = 1;
   let y = 1;
 
@@ -28,11 +31,11 @@ export const getInitialFields = (count: number) => {
       x,
       y,
       state: "virgin",
-      bomb: bombIndexes.includes(id),
+      bomb: false,
       bombsInTouch: 0,
     });
 
-    if (y === count) {
+    if (y === playAreaSize) {
       x++;
       y = 1;
     } else {
@@ -87,12 +90,29 @@ export const getFlags = (fields: Field[]) => {
   return flags;
 };
 
-export const getHydratedFields = (count: number) => {
-  const fields = getInitialFields(count);
-  const flags = getFlags(fields);
-  const hydratedFields: Field[] = [];
+export const getHydratedFields = (
+  playAreaSize: PlayAreaSize,
+  count: number,
+  initialFields: Field[],
+  clickedFieldID: number,
+) => {
+  const initialFieldsWithBombs: Field[] = [];
+  const bombIndexes = getBombIndexes(playAreaSize, count, clickedFieldID);
+  initialFields.forEach(({ id, x, y, state, bombsInTouch }) =>
+    initialFieldsWithBombs.push({
+      id,
+      x,
+      y,
+      state,
+      bomb: bombIndexes.includes(id),
+      bombsInTouch,
+    }),
+  );
+  // const fields = getInitialFields(count);
+  const flags = getFlags(initialFieldsWithBombs);
 
-  fields.forEach(({ id, x, y, state, bomb }) =>
+  const hydratedFields: Field[] = [];
+  initialFieldsWithBombs.forEach(({ id, x, y, state, bomb }) =>
     hydratedFields.push({ id, x, y, state, bomb, bombsInTouch: flags[id - 1] }),
   );
 

@@ -6,3 +6,7 @@ export type Field = {
   bomb: boolean;
   bombsInTouch: number;
 };
+
+export type PlayAreaSize = 10 | 15;
+
+export type Count = 10 | 40 | 60 | 80;

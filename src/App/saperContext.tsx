@@ -1,13 +1,15 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 
-import { Field } from "../types";
-import { getHydratedFields } from "../utils";
+import { Count, Field, PlayAreaSize } from "../types";
+import { getInitialFields } from "../utils";
 
 interface SaperContextType {
-  count: 10 | 20;
-  setCount: React.Dispatch<React.SetStateAction<10 | 20>>;
+  count: Count;
+  setCount: React.Dispatch<React.SetStateAction<Count>>;
   bombsLeft: number;
   setBombsLeft: React.Dispatch<React.SetStateAction<number>>;
+  initialFields: Field[];
+  playAreaSize: PlayAreaSize;
   hydratedFields: Field[];
   setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>;
   gameLength: number;
@@ -32,14 +34,13 @@ export const useSaperContext = () => {
 };
 
 const useSaper = () => {
-  const [count, setCount] = useState<10 | 20>(10);
+  const [count, setCount] = useState<Count>(10);
+  const playAreaSize: PlayAreaSize = count === 10 ? 10 : 15;
   const [bombsLeft, setBombsLeft] = useState<number>(count);
-  const [hydratedFields, setHydratedFields] = useState(
-    getHydratedFields(count),
-  );
+  const initialFields: Field[] = getInitialFields(playAreaSize);
+  const [hydratedFields, setHydratedFields] = useState(initialFields);
   const gameLength = 5 * 60_000; // 5min
   const [countDown, setCountDown] = useState(gameLength);
-
   const isExploded = hydratedFields.some((field) => field.state === "exploded");
   const startTimer = countDown === gameLength;
   const isDraw = countDown === 0 && !isExploded;
@@ -66,6 +67,8 @@ const useSaper = () => {
     startTimer,
     isDraw,
     isWon,
+    initialFields,
+    playAreaSize,
   };
 };
 

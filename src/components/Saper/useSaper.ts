@@ -14,9 +14,11 @@ export const useSaper = () => {
     setHydratedFields,
     bombsLeft,
     setBombsLeft,
+    initialFields,
+    playAreaSize,
   } = useSaperContext();
 
-  const onButtonClick = (
+  const onButtonClickAction = (
     id: number,
     hydratedFields: Field[],
     setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>,
@@ -39,7 +41,7 @@ export const useSaper = () => {
     ]);
   };
 
-  const onRightButtonClick = (id: number) => {
+  const onRightButtonClickAction = (id: number) => {
     const editIndex = id - 1;
 
     if (bombsLeft === 0 && hydratedFields[editIndex].state !== "flagged")
@@ -68,7 +70,7 @@ export const useSaper = () => {
     setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>,
   ) => {
     const field = hydratedFields.find((field) => field.id === id);
-
+    console.count();
     if (
       id > hydratedFields.length ||
       id < 1 ||
@@ -86,7 +88,7 @@ export const useSaper = () => {
       const nextField = getFieldID(x, y, hydratedFields);
 
       if (nextField && getIsFieldClickable(nextField)) {
-        onButtonClick(nextField.id, hydratedFields, setHydratedFields);
+        onButtonClickAction(nextField.id, hydratedFields, setHydratedFields);
         // handleClick(nextField.id, hydratedFields,setHydratedFields);
       }
     });
@@ -99,18 +101,21 @@ export const useSaper = () => {
     nextFieldsToIterate.forEach(({ x, y }) => {
       const nextField = getFieldID(x, y, hydratedFields);
       if (nextField && getIsFieldClickable(nextField)) {
-        handleClick(nextField.id, hydratedFields, setHydratedFields);
+        // handleClick(nextField.id, hydratedFields, setHydratedFields);
+        // handleClick(nextField.id);
       }
     });
   };
 
   return {
-    onButtonClick,
+    onButtonClickAction,
     handleClick,
-    onRightButtonClick,
+    onRightButtonClickAction,
     count,
     isWon,
     hydratedFields,
     setHydratedFields,
+    initialFields,
+    playAreaSize,
   };
 };

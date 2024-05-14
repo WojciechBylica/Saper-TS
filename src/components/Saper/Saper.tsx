@@ -2,20 +2,23 @@ import "./styles.css";
 import classNames from "classnames";
 
 import { useSaper } from "./useSaper";
+import { getHydratedFields } from "../../utils";
 
 export const Saper = () => {
   const {
-    onButtonClick,
+    onButtonClickAction,
     handleClick,
-    onRightButtonClick,
+    onRightButtonClickAction,
     count,
     isWon,
     hydratedFields,
     setHydratedFields,
+    initialFields,
+    playAreaSize,
   } = useSaper();
 
   return (
-    <div className={classNames("box", { "box-modified": count === 20 })}>
+    <div className={classNames("box", { "box-modified": count !== 10 })}>
       {hydratedFields.map(({ state, id, x, y, bomb, bombsInTouch }) =>
         !isWon && (state === "virgin" || state === "flagged") ? (
           <button
@@ -23,16 +26,31 @@ export const Saper = () => {
             aria-label={`button with index x:${x}, y:${y} ${state === "flagged" ? "flagged" : "not flagged"}.`}
             onClick={() => {
               if (hydratedFields[id - 1].state === "flagged") return;
-              onButtonClick(id, hydratedFields, setHydratedFields);
-              if (isWon) {
-                setHydratedFields;
+
+              if (!hydratedFields.some((field) => field.state === "clicked")) {
+                const fieldsAfterFirstClick = getHydratedFields(
+                  playAreaSize,
+                  count,
+                  initialFields,
+                  id,
+                );
+                setHydratedFields(fieldsAfterFirstClick);
+                onButtonClickAction(
+                  id,
+                  fieldsAfterFirstClick,
+                  setHydratedFields,
+                );
+                handleClick(id, fieldsAfterFirstClick, setHydratedFields);
                 return;
               }
+
+              onButtonClickAction(id, hydratedFields, setHydratedFields);
+              if (isWon) return;
               handleClick(id, hydratedFields, setHydratedFields);
             }}
             onContextMenu={(e) => {
               e.preventDefault();
-              onRightButtonClick(id);
+              onRightButtonClickAction(id);
             }}
           >
             {state === "flagged" ? "🚩" : ""}
