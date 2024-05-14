@@ -1,7 +1,7 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 
-import { Count, Field, PlayAreaSize } from "../types";
-import { getInitialFields } from "../utils";
+import { Count, Field, PlayAreaSize } from "../../types";
+import { getInitialFields } from "../../utils";
 
 interface SaperContextType {
   count: Count;
@@ -22,16 +22,6 @@ interface SaperContextType {
 }
 
 export const SaperContext = createContext<SaperContextType | null>(null);
-
-export const useSaperContext = () => {
-  const context = useContext(SaperContext);
-  if (context) {
-    return context;
-  }
-  throw new Error(
-    "Oh no! Component should be placed inside SaperContextProvider",
-  );
-};
 
 const useSaper = () => {
   const [count, setCount] = useState<Count>(10);

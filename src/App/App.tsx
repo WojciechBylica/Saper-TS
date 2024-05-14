@@ -1,5 +1,5 @@
 import { Saper, Controls } from "../components";
-import { SaperContextProvider } from "../App";
+import { SaperContextProvider } from "./context";
 
 const App = () => (
   <SaperContextProvider>

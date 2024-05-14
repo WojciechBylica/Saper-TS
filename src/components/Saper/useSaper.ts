@@ -70,7 +70,7 @@ export const useSaper = () => {
     setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>,
   ) => {
     const field = hydratedFields.find((field) => field.id === id);
-    console.count();
+
     if (
       id > hydratedFields.length ||
       id < 1 ||
