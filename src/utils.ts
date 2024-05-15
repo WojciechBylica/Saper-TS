@@ -48,6 +48,7 @@ export const getInitialFields = (playAreaSize: PlayAreaSize) => {
 
 export const getIsFieldClickable = (field: Field) =>
   !field.bomb && field.state === "virgin";
+
 export const getFieldID = (
   fieldX: number,
   fieldY: number,
@@ -108,7 +109,7 @@ export const getHydratedFields = (
       bombsInTouch,
     }),
   );
-  // const fields = getInitialFields(count);
+  
   const flags = getFlags(initialFieldsWithBombs);
 
   const hydratedFields: Field[] = [];
