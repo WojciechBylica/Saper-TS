@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 
-import { Count, Field, PlayAreaSize } from "../../types";
+import { Count, Field, PlayAreaSize, SetHydratedFields } from "../../types";
 import { getInitialFields } from "../../utils";
 
 interface SaperContextType {
@@ -11,7 +11,7 @@ interface SaperContextType {
   initialFields: Field[];
   playAreaSize: PlayAreaSize;
   hydratedFields: Field[];
-  setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>;
+  setHydratedFields: SetHydratedFields;
   gameLength: number;
   countDown: number;
   setCountDown: React.Dispatch<React.SetStateAction<number>>;

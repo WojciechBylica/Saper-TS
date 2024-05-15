@@ -109,7 +109,7 @@ export const getHydratedFields = (
       bombsInTouch,
     }),
   );
-  
+
   const flags = getFlags(initialFieldsWithBombs);
 
   const hydratedFields: Field[] = [];
