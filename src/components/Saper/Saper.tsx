@@ -28,6 +28,7 @@ export const Saper = () => {
               if (hydratedFields[id - 1].state === "flagged") return;
 
               if (!hydratedFields.some((field) => field.state === "clicked")) {
+                //** handleFirstClick() *
                 const fieldsAfterFirstClick = getHydratedFields(
                   playAreaSize,
                   count,
@@ -43,7 +44,7 @@ export const Saper = () => {
                 handleClick(id, fieldsAfterFirstClick, setHydratedFields);
                 return;
               }
-
+              //**handleNotFirstClick() */
               onButtonClickAction(id, hydratedFields, setHydratedFields);
               if (isWon) return;
               handleClick(id, hydratedFields, setHydratedFields);
@@ -54,7 +55,8 @@ export const Saper = () => {
             }}
           >
             {state === "flagged" ? "🚩" : ""}
-          </button>
+            {/* {bomb && 'b'}  */}
+          </button> // temporary 
         ) : (
           <div
             key={`field-${id}`}
