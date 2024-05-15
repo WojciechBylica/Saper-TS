@@ -64,11 +64,12 @@ export const useSaper = () => {
     );
   };
 
-  const handleClick = ( //rather 'iterateY()
+  const handleClick = ( //rather 'iterateEmptyFields()
     id: number,
     hydratedFields: Field[],
     setHydratedFields: React.Dispatch<React.SetStateAction<Field[]>>,
   ) => {
+    console.count()
     const field = hydratedFields.find((field) => field.id === id);
     if(!field || field.bombsInTouch) return
 
@@ -79,6 +80,23 @@ export const useSaper = () => {
       //**do góry-gdy w lewo */
       let fieldAboveGoingLeft: Field | undefined = tempFieldBack
       do {
+
+        //**w lewo */
+        let tempFieldBack: Field | undefined = fieldAboveGoingLeft
+        do {
+          tempFieldBack = getFieldID(tempFieldBack.x, tempFieldBack.y-1, hydratedFields)
+          tempFieldBack && onButtonClickAction(tempFieldBack.id, hydratedFields, setHydratedFields)
+        }
+        while(tempFieldBack && tempFieldBack.y > 1 && getIsFieldClickable(tempFieldBack) && tempFieldBack.bombsInTouch === 0 )
+
+          //** w prawo */
+        let tempFieldForward: Field | undefined = fieldAboveGoingLeft
+        do {
+          tempFieldForward = getFieldID(tempFieldForward.x, tempFieldForward.y+1, hydratedFields)
+          tempFieldForward && onButtonClickAction(tempFieldForward.id, hydratedFields, setHydratedFields)
+        }
+        while ( tempFieldForward && tempFieldForward.y < playAreaSize && getIsFieldClickable(tempFieldForward) && tempFieldForward.bombsInTouch === 0 )
+
         fieldAboveGoingLeft = getFieldID(fieldAboveGoingLeft.x-1, fieldAboveGoingLeft.y, hydratedFields)
         fieldAboveGoingLeft && onButtonClickAction(fieldAboveGoingLeft.id, hydratedFields, setHydratedFields)
       }
@@ -88,20 +106,29 @@ export const useSaper = () => {
       //**w dół-gdy w lewo */
       let fieldUnderGoingRLeft: Field | undefined = tempFieldBack
       do {
+        //**w lewo */
+        let tempFieldBack: Field | undefined = fieldUnderGoingRLeft
+        do {
+          tempFieldBack = getFieldID(tempFieldBack.x, tempFieldBack.y-1, hydratedFields)
+          tempFieldBack && onButtonClickAction(tempFieldBack.id, hydratedFields, setHydratedFields)
+        }
+        while(tempFieldBack && tempFieldBack.y > 1 && getIsFieldClickable(tempFieldBack) && tempFieldBack.bombsInTouch === 0 )
+
+          //** w prawo */
+        let tempFieldForward: Field | undefined = fieldUnderGoingRLeft
+        do {
+          tempFieldForward = getFieldID(tempFieldForward.x, tempFieldForward.y+1, hydratedFields)
+          tempFieldForward && onButtonClickAction(tempFieldForward.id, hydratedFields, setHydratedFields)
+        }
+        while ( tempFieldForward && tempFieldForward.y < playAreaSize && getIsFieldClickable(tempFieldForward) && tempFieldForward.bombsInTouch === 0 )
+
+
+
         fieldUnderGoingRLeft = getFieldID(fieldUnderGoingRLeft.x+1, fieldUnderGoingRLeft.y, hydratedFields)
         fieldUnderGoingRLeft && onButtonClickAction(fieldUnderGoingRLeft.id, hydratedFields, setHydratedFields)
       }
       while (
         fieldUnderGoingRLeft && fieldUnderGoingRLeft.x < playAreaSize && !field.bomb && field.state === "virgin" && fieldUnderGoingRLeft.bombsInTouch === 0 )
-
-
-
-
-
-
-
-
-
 
 
 
@@ -119,6 +146,26 @@ export const useSaper = () => {
       //**do góry-gdy w prawo */
       let fieldAboveGoingRight: Field | undefined = tempFieldForward
       do {
+         //**w lewo */
+         let tempFieldBack: Field | undefined = fieldAboveGoingRight
+         do {
+           tempFieldBack = getFieldID(tempFieldBack.x, tempFieldBack.y-1, hydratedFields)
+           tempFieldBack && onButtonClickAction(tempFieldBack.id, hydratedFields, setHydratedFields)
+         }
+         while(tempFieldBack && tempFieldBack.y > 1 && getIsFieldClickable(tempFieldBack) && tempFieldBack.bombsInTouch === 0 )
+ 
+           //** w prawo */
+         let tempFieldForward: Field | undefined = fieldAboveGoingRight
+         do {
+           tempFieldForward = getFieldID(tempFieldForward.x, tempFieldForward.y+1, hydratedFields)
+           tempFieldForward && onButtonClickAction(tempFieldForward.id, hydratedFields, setHydratedFields)
+         }
+         while ( tempFieldForward && tempFieldForward.y < playAreaSize && getIsFieldClickable(tempFieldForward) && tempFieldForward.bombsInTouch === 0 )
+ 
+ 
+ 
+
+
         fieldAboveGoingRight = getFieldID(fieldAboveGoingRight!.x-1, fieldAboveGoingRight!.y, hydratedFields)
         fieldAboveGoingRight && onButtonClickAction(fieldAboveGoingRight.id, hydratedFields, setHydratedFields)
       }
@@ -128,6 +175,24 @@ export const useSaper = () => {
       //**w dół-gdy w prawo */
       let fieldUnderGoingRight: Field | undefined = tempFieldForward
       do {
+          //**w lewo */
+          let tempFieldBack: Field | undefined = fieldUnderGoingRight
+          do {
+            tempFieldBack = getFieldID(tempFieldBack.x, tempFieldBack.y-1, hydratedFields)
+            tempFieldBack && onButtonClickAction(tempFieldBack.id, hydratedFields, setHydratedFields)
+          }
+          while(tempFieldBack && tempFieldBack.y > 1 && getIsFieldClickable(tempFieldBack) && tempFieldBack.bombsInTouch === 0 )
+  
+            //** w prawo */
+          let tempFieldForward: Field | undefined = fieldUnderGoingRight
+          do {
+            tempFieldForward = getFieldID(tempFieldForward.x, tempFieldForward.y+1, hydratedFields)
+            tempFieldForward && onButtonClickAction(tempFieldForward.id, hydratedFields, setHydratedFields)
+          }
+          while ( tempFieldForward && tempFieldForward.y < playAreaSize && getIsFieldClickable(tempFieldForward) && tempFieldForward.bombsInTouch === 0 )
+  
+
+
         fieldUnderGoingRight = getFieldID(fieldUnderGoingRight!.x+1, fieldUnderGoingRight!.y, hydratedFields)
         fieldUnderGoingRight && onButtonClickAction(fieldUnderGoingRight.id, hydratedFields, setHydratedFields)
       }
