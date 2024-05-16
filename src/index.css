@@ -70,21 +70,9 @@ button:focus-visible {
   }
   button {
     background: rgb(223, 232, 237);
-    background: -moz-radial-gradient(
-      circle,
-      rgba(223, 232, 237, 1) 0%,
-      rgba(191, 195, 198, 1) 99%
-    );
-    background: -webkit-radial-gradient(
-      circle,
-      rgba(223, 232, 237, 1) 0%,
-      rgba(191, 195, 198, 1) 99%
-    );
-    background: radial-gradient(
-      circle,
-      rgba(223, 232, 237, 1) 0%,
-      rgba(191, 195, 198, 1) 99%
-    );
+    background: -moz-radial-gradient(circle, rgba(223, 232, 237, 1) 0%, rgba(191, 195, 198, 1) 99%);
+    background: -webkit-radial-gradient(circle, rgba(223, 232, 237, 1) 0%, rgba(191, 195, 198, 1) 99%);
+    background: radial-gradient(circle, rgba(223, 232, 237, 1) 0%, rgba(191, 195, 198, 1) 99%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dfe8ed",endColorstr="#bfc3c6",GradientType=1);
   }
 }

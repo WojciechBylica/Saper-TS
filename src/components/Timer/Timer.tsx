@@ -1,7 +1,7 @@
-import { useTimer } from "./useTimer";
+import { useTimer } from './useTimer'
 
 export const Timer = () => {
-  const { timeLeft } = useTimer();
+  const { timeLeft } = useTimer()
 
   return (
     <>
@@ -9,9 +9,9 @@ export const Timer = () => {
         <span key={`time${index}`}>
           {data.number}
           {data.measure}
-          {index === 0 && ":"}
+          {index === 0 && ':'}
         </span>
       ))}
     </>
-  );
-};
+  )
+}
